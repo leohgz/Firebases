@@ -48,10 +48,5 @@ public class MyService extends Service {
                 Log.d("onCancelled","onCancelled!!!!!");
             }
         });
-
-
-
-
-
     }
 }
