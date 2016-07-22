@@ -1,6 +1,7 @@
 package com.example.leohgz.myapplication.leo.own;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,7 +32,8 @@ public class ChatListActivity extends AppCompatActivity implements AdapterView.O
     private List<String> chats;
     private ListView listView;
     private ArrayAdapter<String> adp;
-
+    private HashMap<String,String> mapa;
+    private List<Object> mapaList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,8 @@ public class ChatListActivity extends AppCompatActivity implements AdapterView.O
         chats = new ArrayList<>();
         Log.d("extra: ",""+getIntent().getExtras().getString("chatSel"));
         listView = (ListView)findViewById(R.id.listView);
+        mapa = new HashMap<>();
+        mapaList = new ArrayList<>();
 
         retryChatList();
     }
@@ -69,7 +74,11 @@ public class ChatListActivity extends AppCompatActivity implements AdapterView.O
 
                     DataSnapshot next =iterator.next();
 
+                    mapa= (HashMap<String,String>)next.getValue();
+
                     chats.add(next.getKey());
+
+                    mapaList.add(mapa);
 
                     Log.d("next: ",""+next.getKey());
 
@@ -95,6 +104,13 @@ public class ChatListActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
+        intent.putExtra("Chat",chats.get(position));
+
+        HashMap<String,String> mapa = new HashMap<>();
+        mapa =(HashMap<String,String>)mapaList.get(position);
+        intent.putExtra("ChatId",mapa.get("chat_id"));
+        startActivity(intent);
 
     }
 }

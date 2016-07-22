@@ -33,7 +33,8 @@
             </intent-filter>
         </service>
         <!-- [END firebase_iid_service] -->
-        <activity android:name=".leo.own.ChatListActivity"></activity>
+        <activity android:name=".leo.own.ChatListActivity" />
+        <activity android:name=".leo.own.ChatActivity"></activity>
     </application>
 
 </manifest>
