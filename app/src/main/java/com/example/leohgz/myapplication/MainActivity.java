@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
+import android.util.Log;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends Activity {
 
@@ -18,5 +21,8 @@ public class MainActivity extends Activity {
         startService(new Intent(this, MyService.class));
 
 
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+
+        Log.d("TAG", "token: " + refreshedToken);
     }
 }
