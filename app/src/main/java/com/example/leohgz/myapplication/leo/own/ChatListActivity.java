@@ -1,6 +1,7 @@
 package com.example.leohgz.myapplication.leo.own;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-public class ChatListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class ChatListActivity extends Activity implements AdapterView.OnItemClickListener{
     private FirebaseDatabase database;
     private DatabaseReference ref;
     private String user;
@@ -106,7 +107,7 @@ public class ChatListActivity extends AppCompatActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
         intent.putExtra("Chat",chats.get(position));
-
+        intent.putExtra("User",user);
         HashMap<String,String> mapa = new HashMap<>();
         mapa =(HashMap<String,String>)mapaList.get(position);
         intent.putExtra("ChatId",mapa.get("chat_id"));

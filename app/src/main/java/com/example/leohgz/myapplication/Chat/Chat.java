@@ -6,6 +6,14 @@ package com.example.leohgz.myapplication.Chat;
 public class Chat {
     private String text;
     private Long user_id;
+    private boolean owns=false;
+
+    public void setChatUser(String currentUser) {
+        if (currentUser.trim().equals(user_id.toString())){
+            owns=true;
+        }
+
+    }
 
     public String getText() {
         return text;
@@ -27,6 +35,8 @@ public class Chat {
 
     }
 
-
+    public boolean owns(){
+        return owns;
+    }
 
 }
