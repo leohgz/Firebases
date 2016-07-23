@@ -3,7 +3,9 @@ package com.example.leohgz.myapplication.leo.own;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +31,7 @@ public class ChatActivity extends Activity {
     private List<Chat> chats;
     private ListView listView;
     private ArrayAdapter<String> adp;
-
+    private EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,7 @@ public class ChatActivity extends Activity {
         listView = (ListView)findViewById(R.id.listView2);
         chats = new ArrayList<>();
         ((TextView)findViewById(R.id.textView2)).setText(chat_id);
+        editText=(EditText)findViewById(R.id.chat_text_entry_user);
         setChat();
     }
 
@@ -56,10 +59,11 @@ public class ChatActivity extends Activity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                chats.clear();
+
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
 
                 while (iterator.hasNext()){
-
 
                     DataSnapshot dataSnapshot1 =iterator.next();
 
@@ -79,6 +83,14 @@ public class ChatActivity extends Activity {
         });
     }
 
+
+    public void sendChatText(String text){
+        Chat chat= new Chat();
+        chat.setText(text);
+        chat.setUser_id((long) 233445555);
+        ref.child("chats/"+chat_id).push().setValue(chat);
+    }
+
     public void setListView(){
 
         AdapterChat adapterChat = new AdapterChat(chats,getApplicationContext());
@@ -87,4 +99,13 @@ public class ChatActivity extends Activity {
 
     }
 
+
+    public void handleClick(View v){
+
+        Log.d("click","click");
+
+        String texto = editText.getText().toString();
+
+        sendChatText(texto);
+    }
 }
