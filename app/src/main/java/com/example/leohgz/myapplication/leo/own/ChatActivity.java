@@ -58,7 +58,7 @@ public class ChatActivity extends Activity {
         q.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+ 
                 chats.clear();
 
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
