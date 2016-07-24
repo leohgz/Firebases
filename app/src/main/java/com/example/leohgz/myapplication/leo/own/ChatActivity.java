@@ -58,7 +58,7 @@ public class ChatActivity extends Activity {
         q.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
- 
+
                 chats.clear();
 
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
@@ -68,6 +68,7 @@ public class ChatActivity extends Activity {
                     DataSnapshot dataSnapshot1 =iterator.next();
 
                     Chat chat =dataSnapshot1.getValue(Chat.class);
+
                     chat.setChatUser(user);
 
                     chats.add(chat);
@@ -85,16 +86,23 @@ public class ChatActivity extends Activity {
 
 
     public void sendChatText(String text){
+
         Chat chat= new Chat();
+
         chat.setText(text);
-        chat.setUser_id((long) 233445555);
+
+        chat.setUser_id(Long.parseLong(user));
+
         ref.child("chats/"+chat_id).push().setValue(chat);
     }
 
     public void setListView(){
 
         AdapterChat adapterChat = new AdapterChat(chats,getApplicationContext());
+
         listView.setAdapter(adapterChat);
+
+        listView.setSelection(chats.size()-1);
 
 
     }
